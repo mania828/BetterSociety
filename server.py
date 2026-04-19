@@ -1,7 +1,7 @@
 from fastapi import FastAPI, WebSocket
 import asyncio
+import time
 app = FastAPI()
-
 clients = set()
 
 @app.get("/")
@@ -22,17 +22,13 @@ async def ws(websocket: WebSocket):
                     await c.send_text(msg)
                 except:
                     clients.discard(c)
-                    asyncio.create_task(keep_alive(websocket))
 
-    except:
+    except Exception as e:
+        print("WebSocket error:", e)
+
+    finally:
         clients.discard(websocket)
 
-        
-
-async def keep_alive(websocket: WebSocket):
-    while True:
-        try:
-            await websocket.send_text("__ping__")
-            await asyncio.sleep(20)
-        except:
-            break
+@app.get("/ping")
+def ping():
+    return {"time": time.time()}
