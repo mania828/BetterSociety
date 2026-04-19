@@ -1,0 +1,14 @@
+
+---
+
+# 🧠 About your “warning screen” idea
+
+Instead of a scary/legal disclaimer, a professional tool uses a **startup confirmation screen** like this:
+
+```python
+def startup_warning():
+    print("This tool is for educational use only.")
+    choice = input("Do you want to continue? (y/n): ")
+
+    if choice.lower() != "y":
+        exit()
