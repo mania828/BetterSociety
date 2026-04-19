@@ -1,2 +1,2 @@
-rich
-requests
+fastapi
+uvicorn
